@@ -1,3 +1,4 @@
+import { ClientProtocolId } from "frames.js";
 import {
   FrameButton,
   FrameContainer,
@@ -19,6 +20,17 @@ type State = {
 };
 
 const initialState = { active: "1", total_button_presses: 0 };
+
+const acceptedProtocols: ClientProtocolId[] = [
+  {
+    id: "xmtp",
+    version: "vNext",
+  },
+  {
+    id: "farcaster",
+    version: "vNext",
+  },
+];
 
 const reducer: FrameReducer<State> = (state, action) => {
   return {
@@ -52,6 +64,23 @@ export default async function Home({ searchParams }: NextServerPageProps) {
   // example: load the users credentials & check they have an NFT
 
   console.log("info: state is:", state);
+  console.log("info: message is:", frameMessage);
+
+  if (frameMessage?.transactionId) {
+    return (
+      <FrameContainer
+        postUrl="/frames"
+        pathname="/"
+        state={state}
+        previousFrame={previousFrame}
+        accepts={acceptedProtocols}>
+          <FrameImage aspectRatio="1.91:1">
+            <div tw="flex">Transaction Received</div>
+            <div tw="flex">{frameMessage?.transactionId}</div>
+          </FrameImage>
+      </FrameContainer>
+    )
+  }
 
   // then, when done, return next frame
   return (
@@ -70,6 +99,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
         pathname="/"
         state={state}
         previousFrame={previousFrame}
+        accepts={acceptedProtocols}
       >
         {/* <FrameImage src="https://framesjs.org/og.png" /> */}
         <FrameImage aspectRatio="1.91:1">
@@ -111,6 +141,9 @@ export default async function Home({ searchParams }: NextServerPageProps) {
         </FrameButton>
         <FrameButton action="link" target={`https://www.google.com`}>
           External
+        </FrameButton>
+        <FrameButton action="tx" target="http://localhost:3000/txtarget" post_url="http://localhost:3000/frames">
+          Pay
         </FrameButton>
       </FrameContainer>
     </div>
