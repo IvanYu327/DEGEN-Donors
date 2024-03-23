@@ -62,6 +62,8 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        progressBar: "#285fcd",
+        progressBarBg: "#d9d9d9",
       },
       borderRadius: {
         lg: "var(--radius)",
