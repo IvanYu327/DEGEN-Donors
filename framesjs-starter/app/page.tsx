@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { DEFAULT_DEBUGGER_HUB_URL, createDebugUrl } from "./debug";
 import { currentURL } from "./utils";
+import Image from "next/image";
 
 type State = {
   active: string;
@@ -73,33 +74,41 @@ export default async function Home({ searchParams }: NextServerPageProps) {
       >
         {/* <FrameImage src="https://framesjs.org/og.png" /> */}
         <FrameImage aspectRatio="1.91:1">
-          <div tw="w-full h-full bg-slate-700 text-white justify-center items-center flex flex-col">
-            <div tw="flex flex-row">
-              {frameMessage?.inputText ? frameMessage.inputText : "Hello world"}
+          <div tw="w-full h-full bg-gray-200 flex flex-col">
+            <div tw="bg-slate-700 text-white p-12 flex justify-between items-center">
+              <div>Donate Now</div>
             </div>
-            {frameMessage && (
-              <div tw="flex flex-col">
-                <div tw="flex">
-                  Requester is @{frameMessage.requesterUserData?.username}{" "}
-                </div>
-                <div tw="flex">
-                  Requester follows caster:{" "}
-                  {frameMessage.requesterFollowsCaster ? "true" : "false"}
-                </div>
-                <div tw="flex">
-                  Caster follows requester:{" "}
-                  {frameMessage.casterFollowsRequester ? "true" : "false"}
-                </div>
-                <div tw="flex">
-                  Requester liked cast:{" "}
-                  {frameMessage.likedCast ? "true" : "false"}
-                </div>
-                <div tw="flex">
-                  Requester recasted cast:{" "}
-                  {frameMessage.recastedCast ? "true" : "false"}
-                </div>
+            {/* Image, with title, and description to the right */}
+            <div tw="flex flex-row">
+              <div tw="flex flex-row">
+                {/* <Image
+                  src="/your-image.jpg"
+                  alt="Your Image"
+                  width={500}
+                  height={500}
+                /> */}
+                <div tw="flex bg-gray-300 w-64 h-64"></div>
               </div>
-            )}
+              <div tw="flex flex-col">
+                <h2>Title</h2>
+                <p>Description</p>
+              </div>
+            </div>
+            {/* Progress bar */}
+            <div tw="flex flex-col items-center">
+              <div tw="flex w-80/100 h-8 bg-red-500 rounded-lg overflow-hidden">
+                <div
+                  tw="flex bg-blue-500 h-full"
+                  style={{ width: "70%" }}
+                ></div>
+                {/* Adjust width dynamically */}
+              </div>
+            </div>
+            {/* $500 of $1000 raised left justified and 26 days left, right justified */}
+            <div tw="flex justify-between px-12">
+              <div>$500 of $1000 raised</div>
+              <div>26 days left</div>
+            </div>
           </div>
         </FrameImage>
         <FrameInput text="put some text here" />
