@@ -13,6 +13,8 @@
     "update-framesjs": "yarn upgrade frames.js@latest && yarn run update-debugger"
   },
   "dependencies": {
+    "@dynamic-labs/ethereum": "^1.4.1",
+    "@dynamic-labs/sdk-react-core": "^1.4.1",
     "@farcaster/core": "^0.14.3",
     "@noble/ed25519": "^2.0.0",
     "@types/styled-components": "^5.1.34",
