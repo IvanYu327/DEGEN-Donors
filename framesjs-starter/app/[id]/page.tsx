@@ -230,13 +230,6 @@ export default async function Home({ params, searchParams }: HomeProps) {
         </FrameButton>
         <FrameButton
           action="tx"
-          target={`http://localhost:3000/${params.id}/transactions/target?amount=0.02`}
-          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
-        >
-          Donate $0.02
-        </FrameButton>
-        <FrameButton
-          action="tx"
           target={`http://localhost:3000/${params.id}/transactions/target?amount=0.03`}
           post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
         >
@@ -249,6 +242,11 @@ export default async function Home({ params, searchParams }: HomeProps) {
           post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
         >
           Donate Custom
+        </FrameButton>
+        <FrameButton
+              action="post"
+              target={`http://localhost:3000/${params.id}/stats`}>
+          Stats
         </FrameButton>
       </FrameContainer>
     </div>

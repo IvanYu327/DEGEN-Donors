@@ -44,7 +44,7 @@ export async function POST(req: Request, params: any) {
         params: {
             abi: null,
             to: address,
-            value: Math.floor(amount).toString()
+            value: Math.round(amount).toString()
         }
     })
 }

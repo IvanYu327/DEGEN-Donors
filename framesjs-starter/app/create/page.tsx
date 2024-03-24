@@ -113,7 +113,7 @@ const Page = () => {
       chainId: "84532",
       description: description,
       end_time: "1713951647000",
-      goal: Math.floor(Number(goal) * (1 / 3379.25) * 1e18),
+      goal: Math.round(Number(goal) * (1 / 3379.25) * 1e18),
       title: name
     })
 
