@@ -78,6 +78,11 @@ const FormInput = styled.input`
   border: 1px solid #ccc;
 `;
 
+const dynamicEmbed = styled.button`
+  color: red;
+`
+import pinata from "../public/pinata.png"
+
 const Page = () => {
   const [image, setImage] = useState<File | null>(null);
   const [name, setName] = useState("");
@@ -119,6 +124,7 @@ const Page = () => {
 
     const newFundRaiserUrl = "http://localhost:3000" + newFundRaiserRef.toString().substring(newFundRaiserRef.root.toString().length-1)
     alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`)
+    window.open(newFundRaiserUrl, '_blank', 'noopener,noreferrer')
   };
 
   return (
@@ -135,7 +141,8 @@ const Page = () => {
             <img src={URL.createObjectURL(image)} alt="Uploaded" />
           ) : (
             <div style={{ width: "225px" }}>
-              Upload your fundraiser image/video, powered by Pinata
+              Upload your fundraiser image/video, powered by
+              <img src="/pinata.png" alt="Pinata" />
             </div>
           )}
         </DropZone>
@@ -159,7 +166,7 @@ const Page = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
           <FormInput
-            type="text"
+            type="number"
             placeholder="$ Your starting goal"
             value={goal}
             onChange={(e) => setGoal(e.target.value)}

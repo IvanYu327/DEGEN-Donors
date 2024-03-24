@@ -193,7 +193,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
                 <div tw="flex flex-col pl-8 w-210">
                   <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
                   <p tw="mt-0 pt-0 mb-0 pb-0">
-                    {state?.description} ohsodjsofjsdo
+                    {state?.description}
                   </p>
                 </div>
               </div>
