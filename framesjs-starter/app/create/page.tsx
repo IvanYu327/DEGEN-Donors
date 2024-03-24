@@ -7,6 +7,23 @@ import FontStyles from "../globalStyles";
 
 import TitleComponent from "./title";
 
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push } from "firebase/database";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDeiitajd2hd8VK1O_LQbxnC9ivFrNEAjs",
+  authDomain: "defi-donors.firebaseapp.com",
+  projectId: "defi-donors",
+  storageBucket: "defi-donors.appspot.com",
+  messagingSenderId: "993271436077",
+  appId: "1:993271436077:web:8e5dad32ec7f87638779a4",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase();
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,13 +100,25 @@ const Page = () => {
     }
   };
 
-  const handleFormSubmit = (event: React.FormEvent) => {
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Image:", image);
     console.log("Name:", name);
     console.log("Description:", description);
     console.log("Goal:", goal);
     console.log("Wallet Address:", walletAddress);
+
+    const newFundRaiserRef = await push(ref(database, "/"), {
+      address: walletAddress,
+      chainId: "84532",
+      description: description,
+      end_time: "1713951647000",
+      goal: Math.floor(Number(goal) * (1 / 3379.25) * 1e18),
+      title: name
+    })
+
+    const newFundRaiserUrl = "http://localhost:3000" + newFundRaiserRef.toString().substring(newFundRaiserRef.root.toString().length-1)
+    alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`)
   };
 
   return (
