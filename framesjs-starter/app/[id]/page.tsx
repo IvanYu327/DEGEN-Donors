@@ -39,6 +39,7 @@ type RawState = {
   donations: { txId: string; address: string; value: number }[];
   chainId: string;
   address: string;
+  image: string;
 };
 
 type State = {
@@ -70,20 +71,11 @@ const reducer: FrameReducer<State> = (state, action) => {
   };
 };
 
-const getInitialState = async (id: string) => {
-  const dbRef = ref(database, id);
-  const snapshot = await get(dbRef);
-  if (!snapshot.exists()) {
-    throw new Error("No data available");
-  }
-
-  const rawState: RawState = snapshot.val();
-
+const getInitialState = async (rawState: RawState) => {
   return {
     title: rawState.title,
     description: rawState.description,
     goal: Math.round((rawState.goal / ((1 / 3379.25) * 1e18)) * 100) / 100,
-
     raised:
       Math.round(
         (Object.values(rawState.donations ?? {}).reduce(
@@ -109,8 +101,15 @@ export default async function Home({ params, searchParams }: HomeProps) {
   // const url = currentURL("/");
   const previousFrame = getPreviousFrame<State>(searchParams);
   const dbRef = ref(database, params.id);
+  const snapshot = await get(dbRef);
+  if (!snapshot.exists()) {
+    throw new Error("No data available");
+  }
 
-  const initialState: State = await getInitialState(params.id);
+  const rawState: RawState = snapshot.val();
+  const img = rawState.image;
+
+  const initialState: State = await getInitialState(rawState);
 
   const frameMessage = await getFrameMessage(previousFrame.postBody, {
     hubHttpUrl: DEFAULT_DEBUGGER_HUB_URL,
@@ -182,13 +181,12 @@ export default async function Home({ params, searchParams }: HomeProps) {
             <div tw="flex flex-col">
               <div tw="flex flex-row pl-8 pt-8 pb-8">
                 <div tw="flex flex-row">
-                  {/* <Image
-                  src="/your-image.jpg"
-                  alt="Your Image"
-                  width={64}
-                  height={64}
-                /> */}
-                  <div tw="flex bg-gray-300 w-64 h-64"></div>
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${rawState.image}`}
+                    height="200"
+                    width="200"
+                    alt="image"
+                  />
                 </div>
                 <div tw="flex flex-col pl-8 w-210">
                   <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
@@ -244,8 +242,9 @@ export default async function Home({ params, searchParams }: HomeProps) {
           Donate Custom
         </FrameButton>
         <FrameButton
-              action="post"
-              target={`http://localhost:3000/${params.id}/stats`}>
+          action="post"
+          target={`http://localhost:3000/${params.id}/stats`}
+        >
           Stats
         </FrameButton>
       </FrameContainer>

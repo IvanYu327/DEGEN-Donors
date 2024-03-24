@@ -78,10 +78,15 @@ const FormInput = styled.input`
   border: 1px solid #ccc;
 `;
 
+const FormImage = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+`;
+
 const dynamicEmbed = styled.button`
   color: red;
-`
-import pinata from "../public/pinata.png"
+`;
+import pinata from "../public/pinata.png";
 
 const Page = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -113,18 +118,35 @@ const Page = () => {
     console.log("Goal:", goal);
     console.log("Wallet Address:", walletAddress);
 
+    if (!image) {
+      return;
+    }
+
+    const data = new FormData();
+    data.set("file", image);
+    const res = await fetch("http://localhost:3000/create/upload", {
+      method: "POST",
+      body: data,
+    });
+    const { IpfsHash } = await res.json();
+
     const newFundRaiserRef = await push(ref(database, "/"), {
       address: walletAddress,
       chainId: "84532",
       description: description,
       end_time: "1713951647000",
       goal: Math.round(Number(goal) * (1 / 3379.25) * 1e18),
-      title: name
-    })
+      title: name,
+      image: IpfsHash,
+    });
 
-    const newFundRaiserUrl = "http://localhost:3000" + newFundRaiserRef.toString().substring(newFundRaiserRef.root.toString().length-1)
-    alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`)
-    window.open(newFundRaiserUrl, '_blank', 'noopener,noreferrer')
+    const newFundRaiserUrl =
+      "http://localhost:3000" +
+      newFundRaiserRef
+        .toString()
+        .substring(newFundRaiserRef.root.toString().length - 1);
+    alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`);
+    window.open(newFundRaiserUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -138,9 +160,9 @@ const Page = () => {
           onClick={() => document.getElementById("fileInput")?.click()}
         >
           {image ? (
-            <img src={URL.createObjectURL(image)} alt="Uploaded" />
+            <FormImage src={URL.createObjectURL(image)} alt="Uploaded" />
           ) : (
-            <div style={{ width: "225px" }}>
+            <div style={{ width: "250px" }}>
               Upload your fundraiser image/video, powered by
               <img src="/pinata.png" alt="Pinata" />
             </div>
