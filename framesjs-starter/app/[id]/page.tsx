@@ -36,9 +36,9 @@ type RawState = {
   description: string;
   goal: number;
   end_time: number;
-  donations: {txId: string, address: string; value: number}[];
-  chainId: string,
-  address: string
+  donations: { txId: string; address: string; value: number }[];
+  chainId: string;
+  address: string;
 };
 
 type State = {
@@ -82,12 +82,22 @@ const getInitialState = async (id: string) => {
   return {
     title: rawState.title,
     description: rawState.description,
-    goal: Math.round(rawState.goal / ((1 / 3379.25) * 1e18) * 100) / 100,
+    goal: Math.round((rawState.goal / ((1 / 3379.25) * 1e18)) * 100) / 100,
 
-    raised: Math.round((Object.values(rawState.donations ?? {}).reduce((acc, v) => acc + v.value, 0)) / ((1 / 3379.25) * 1e18) * 100) / 100,
-    days_left: Math.ceil((rawState.end_time - Date.now()) / (1000 * 60 * 60 * 24))
-  }
-}
+    raised:
+      Math.round(
+        (Object.values(rawState.donations ?? {}).reduce(
+          (acc, v) => acc + v.value,
+          0
+        ) /
+          ((1 / 3379.25) * 1e18)) *
+          100
+      ) / 100,
+    days_left: Math.ceil(
+      (rawState.end_time - Date.now()) / (1000 * 60 * 60 * 24)
+    ),
+  };
+};
 
 interface HomeProps {
   params: { id: string };
@@ -100,7 +110,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
   const previousFrame = getPreviousFrame<State>(searchParams);
   const dbRef = ref(database, params.id);
 
-  const initialState: State = await getInitialState(params.id)
+  const initialState: State = await getInitialState(params.id);
 
   const frameMessage = await getFrameMessage(previousFrame.postBody, {
     hubHttpUrl: DEFAULT_DEBUGGER_HUB_URL,
@@ -164,25 +174,27 @@ export default async function Home({ params, searchParams }: HomeProps) {
       >
         {/* <FrameImage src="https://framesjs.org/og.png" /> */}
         <FrameImage aspectRatio="1.91:1">
-          <div tw="w-full h-full bg-gray-200 flex flex-col">
+          <div tw="w-full h-full bg-gray-200 flex flex-col ">
             <div tw="bg-slate-700 text-white p-12 flex justify-between items-center">
               <div>Donate Now</div>
             </div>
             {/* Image, with title, and description to the right */}
-            <div tw="flex flex-col w-95/100">
-              <div tw="flex flex-row">
+            <div tw="flex flex-col">
+              <div tw="flex flex-row pl-8 pt-8 pb-8">
                 <div tw="flex flex-row">
                   {/* <Image
                   src="/your-image.jpg"
                   alt="Your Image"
-                  width={500}
-                  height={500}
+                  width={64}
+                  height={64}
                 /> */}
                   <div tw="flex bg-gray-300 w-64 h-64"></div>
                 </div>
-                <div tw="flex flex-col">
-                  <h2>{state?.title}</h2>
-                  <p>{state?.description}</p>
+                <div tw="flex flex-col pl-8 w-210">
+                  <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
+                  <p tw="mt-0 pt-0 mb-0 pb-0">
+                    {state?.description} ohsodjsofjsdo
+                  </p>
                 </div>
               </div>
               {/* Progress bar */}
@@ -210,28 +222,32 @@ export default async function Home({ params, searchParams }: HomeProps) {
           </div>
         </FrameImage>
         <FrameButton
-              action="tx"
-              target={`http://localhost:3000/${params.id}/transactions/target?amount=0.01`}
-              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          action="tx"
+          target={`http://localhost:3000/${params.id}/transactions/target?amount=0.01`}
+          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+        >
           Donate $0.01
         </FrameButton>
         <FrameButton
-              action="tx"
-              target={`http://localhost:3000/${params.id}/transactions/target?amount=0.02`}
-              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          action="tx"
+          target={`http://localhost:3000/${params.id}/transactions/target?amount=0.02`}
+          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+        >
           Donate $0.02
         </FrameButton>
         <FrameButton
-              action="tx"
-              target={`http://localhost:3000/${params.id}/transactions/target?amount=0.03`}
-              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          action="tx"
+          target={`http://localhost:3000/${params.id}/transactions/target?amount=0.03`}
+          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+        >
           Donate $0.03
         </FrameButton>
         <FrameInput text="Enter Custom Amount in $" />
         <FrameButton
-              action="tx"
-              target={`http://localhost:3000/${params.id}/transactions/target?amount=custom`}
-              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          action="tx"
+          target={`http://localhost:3000/${params.id}/transactions/target?amount=custom`}
+          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+        >
           Donate Custom
         </FrameButton>
       </FrameContainer>
