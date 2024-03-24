@@ -17,7 +17,7 @@ const TitleContainer = styled.div`
 
 const Title = styled.h1`
   color: #295fcd;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   padding-bottom: 0;
 `;
 

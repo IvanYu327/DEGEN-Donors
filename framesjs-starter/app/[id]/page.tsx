@@ -189,15 +189,8 @@ export default async function Home({ params, searchParams }: HomeProps) {
                   />
                 </div>
                 <div tw="flex flex-col pl-8 w-210">
-<<<<<<< HEAD
-                  <h2 tw="mt-0 pt-0 mb-0 pb-0 font-sfmono">{state?.title}</h2>
-                  <p tw="mt-0 pt-0 mb-0 pb-0 font-sfmono">
-                    {state?.description} ohsodjsofjsdo
-                  </p>
-=======
                   <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
                   <p tw="mt-0 pt-0 mb-0 pb-0">{state?.description}</p>
->>>>>>> 2c181c9ca39a9585c3e0b6880fe07340b491dd2e
                 </div>
               </div>
               {/* Progress bar */}

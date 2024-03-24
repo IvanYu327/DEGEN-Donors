@@ -83,7 +83,7 @@ const FormImage = styled.img`
 
 const dynamicEmbed = styled.button`
   color: red;
-`
+`;
 
 const FlexRow = styled.div`
   display: flex;
@@ -144,14 +144,6 @@ const Page = () => {
       chainId: "84532",
       description: description,
       end_time: "1713951647000",
-<<<<<<< HEAD
-      goal: Math.floor(Number(goal) * (1 / 3379.25) * 1e18),
-      title: name,
-    });
-
-    const newFundRaiserUrl =
-      "http://localhost:3000" +
-=======
       goal: Math.round(Number(goal) * (1 / 3379.25) * 1e18),
       title: name,
       image: IpfsHash,
@@ -159,15 +151,11 @@ const Page = () => {
 
     const newFundRaiserUrl =
       process.env.NEXT_PUBLIC_HOST +
->>>>>>> 2c181c9ca39a9585c3e0b6880fe07340b491dd2e
       newFundRaiserRef
         .toString()
         .substring(newFundRaiserRef.root.toString().length - 1);
     alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`);
-<<<<<<< HEAD
-=======
     window.open(newFundRaiserUrl, "_blank", "noopener,noreferrer");
->>>>>>> 2c181c9ca39a9585c3e0b6880fe07340b491dd2e
   };
 
   async function createEmbeddableWallet() {
@@ -193,9 +181,7 @@ const Page = () => {
     let newWallets: string[];
 
     console.debug(response, response?.user?.wallets);
-    newWallets = (response).user.wallets.map(
-        (wallet: any) => wallet.publicKey
-    );
+    newWallets = response.user.wallets.map((wallet: any) => wallet.publicKey);
 
     alert(
       `Your Dynamic wallet is ${newWallets}. Login in to https://demo.dynamic.xyz/?use-environment=Farcaster" to access it.`
@@ -220,7 +206,7 @@ const Page = () => {
             <FormImage src={URL.createObjectURL(image)} alt="Uploaded" />
           ) : (
             <div style={{ width: "250px" }}>
-              Upload your fundraiser image/video, powered by
+              Upload your fundraiser media, powered by
               <img src="/pinata.png" alt="Pinata" />
             </div>
           )}
