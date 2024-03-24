@@ -31,6 +31,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
+type RawState = {
+  title: string;
+  description: string;
+  goal: number;
+  end_time: number;
+  donations: {txId: string, address: string; value: number}[];
+  chainId: string,
+  address: string
+};
+
 type State = {
   title: string;
   description: string;
@@ -60,6 +70,25 @@ const reducer: FrameReducer<State> = (state, action) => {
   };
 };
 
+const getInitialState = async (id: string) => {
+  const dbRef = ref(database, id);
+  const snapshot = await get(dbRef);
+  if (!snapshot.exists()) {
+    throw new Error("No data available");
+  }
+
+  const rawState: RawState = snapshot.val();
+
+  return {
+    title: rawState.title,
+    description: rawState.description,
+    goal: Math.round(rawState.goal / ((1 / 3379.25) * 1e18) * 100) / 100,
+
+    raised: Math.round((Object.values(rawState.donations ?? {}).reduce((acc, v) => acc + v.value, 0)) / ((1 / 3379.25) * 1e18) * 100) / 100,
+    days_left: Math.ceil((rawState.end_time - Date.now()) / (1000 * 60 * 60 * 24))
+  }
+}
+
 interface HomeProps {
   params: { id: string };
   searchParams: NextServerPageProps["searchParams"];
@@ -70,14 +99,8 @@ export default async function Home({ params, searchParams }: HomeProps) {
   // const url = currentURL("/");
   const previousFrame = getPreviousFrame<State>(searchParams);
   const dbRef = ref(database, params.id);
-  const snapshot = await get(dbRef);
-  if (!snapshot.exists()) {
-    throw new Error("No data available");
-  }
 
-  console.log('AAAA', previousFrame)
-
-  const initialState: State = snapshot.val();
+  const initialState: State = await getInitialState(params.id)
 
   const frameMessage = await getFrameMessage(previousFrame.postBody, {
     hubHttpUrl: DEFAULT_DEBUGGER_HUB_URL,

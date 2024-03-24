@@ -10,9 +10,26 @@ import {
     getPreviousFrame,
     useFramesReducer,
 } from "frames.js/next/server";
-import Link from "next/link";
+import { Web3 } from "web3";
 import { DEFAULT_DEBUGGER_HUB_URL, createDebugUrl } from "../../../debug";
-import { currentURL } from "../../../utils";
+import { initializeApp } from "firebase/app";
+import { get, getDatabase, ref, set, push } from "firebase/database";
+
+const web3 = new Web3("https://base-sepolia.g.alchemy.com/v2/52yhabS9hItelQz4l5GhiuVZUFnF4DOf");
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDeiitajd2hd8VK1O_LQbxnC9ivFrNEAjs",
+    authDomain: "defi-donors.firebaseapp.com",
+    projectId: "defi-donors",
+    storageBucket: "defi-donors.appspot.com",
+    messagingSenderId: "993271436077",
+    appId: "1:993271436077:web:8e5dad32ec7f87638779a4",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase();
 
 type State = {};
 
@@ -28,7 +45,6 @@ const acceptedProtocols: ClientProtocolId[] = [
 ];
 
 const reducer: FrameReducer<State> = (state, action) => {
-    console.log('CCCC', action)
     return {};
 };
 
@@ -40,8 +56,6 @@ interface HomeProps {
 // This is a react server component only
 export default async function Home({ params, searchParams }: HomeProps) {
     const previousFrame = getPreviousFrame<State>(searchParams);
-
-    console.log('BBBB', previousFrame)
 
     const initialState: State = {}
 
@@ -65,7 +79,54 @@ export default async function Home({ params, searchParams }: HomeProps) {
     console.log("info: state is:", state);
     console.log("info: message is:", frameMessage);
 
-    const txId = frameMessage?.transactionId ?? ""
+    const txId = frameMessage?.transactionId
+
+    if (!txId) {
+        return (
+            <FrameContainer
+                postUrl={`/${params.id}/transactions/processing`}
+                pathname={`/${params.id}/transactions/processing`}
+                state={state}
+                previousFrame={previousFrame}
+                accepts={acceptedProtocols}>
+                <FrameImage aspectRatio="1.91:1">
+                    <div tw="flex">No Transaction Found</div>
+                </FrameImage>
+                <FrameButton
+                    target={`http://localhost:3000/${params.id}`}>
+                    Go Back
+                </FrameButton>
+            </FrameContainer>
+        )
+    }
+
+    const processTransaction = async (i: number) => {
+        try {
+            const txDetail = await web3.eth.getTransaction(txId);
+
+            const dbRef = ref(database, params.id);
+            const snapshot = await get(dbRef);
+            if (!snapshot.exists()) {
+                throw new Error("No data available");
+            }
+
+            const { donations } = snapshot.val();
+            if (Object.values(donations ?? {}).some((d: any) => d.txId == txId)) {
+                console.log(`Transaction id ${txId} already recorded for this charity`)
+                return
+            }
+
+            await push(ref(database, `${params.id}/donations`), {
+                txId,
+                address: txDetail.from,
+                value: Number(txDetail?.value ?? 0)
+            })
+        } catch (err) {
+            console.log(err)
+            if (i + 1 < 5) setTimeout(() => processTransaction(i + 1), 2000)
+        }
+    }
+    setTimeout(() => processTransaction(0), 2000)
 
     return (
         <FrameContainer

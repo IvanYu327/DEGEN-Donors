@@ -18,6 +18,7 @@
     "@types/styled-components": "^5.1.34",
     "@vercel/kv": "^1.0.1",
     "@xmtp/frames-validator": "^0.5.0",
+    "alchemy-sdk": "^3.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "firebase": "^10.9.0",
@@ -27,7 +28,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.8",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "web3": "^4.6.0"
   },
   "engines": {
     "node": ">=18.17.0"
