@@ -1,4 +1,4 @@
-# DeFiDonors
+# Degen Donors
 
 ![demo1](https://github.com/IvanYu327/DeFiDonors/assets/46613983/dd0613ac-1fb1-4d62-96c1-91e2ac1a25d2)
 
