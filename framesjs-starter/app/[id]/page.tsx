@@ -16,6 +16,7 @@ import { currentURL } from "../utils";
 
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, ref } from "firebase/database";
+import { getXmtpFrameMessage, isXmtpFrameActionPayload } from "frames.js/xmtp"; 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -53,7 +54,7 @@ type State = {
 const acceptedProtocols: ClientProtocolId[] = [
   {
     id: "xmtp",
-    version: "vNext",
+    version: "2024-02-01",
   },
   {
     id: "farcaster",

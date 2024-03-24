@@ -42,7 +42,7 @@ type State = {};
 const acceptedProtocols: ClientProtocolId[] = [
     {
         id: "xmtp",
-        version: "vNext",
+        version: "2024-02-01",
     },
     {
         id: "farcaster",
