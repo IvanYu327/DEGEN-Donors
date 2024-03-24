@@ -52,7 +52,7 @@ const TitleComponent: React.FC<TitleProps> = ({ title, subtitle }) => {
           <Subtitle>{subtitle}</Subtitle>
         ) : (
           <Subtitle>
-            deploy your own fundraiser to your farcaster{" "}
+            deploy your own fundraiser to your farcaster following{" "}
             <span style={{ fontWeight: "1000" }}>in seconds</span>.
           </Subtitle>
         )}
