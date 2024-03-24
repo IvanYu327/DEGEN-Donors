@@ -31,10 +31,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 const fdk = new PinataFDK({
-  pinata_jwt:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJlYzU3N2RmMS0wMDE5LTRjYzUtYTc5Mi02ZmYzMGNmZGVjOTQiLCJlbWFpbCI6Imphc29udzM2NTE1MTYwNUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMjk5ZWM5YmI0NzJmNDE1NDNmNDMiLCJzY29wZWRLZXlTZWNyZXQiOiI5NGNmYzRlY2U4MWNiY2U2Y2Y0YmI3YWQwZmYzOTljYmQ0OTU0MGM0ODEyZmRlNzczMDU4YTdkMmI1NzQzMjYxIiwiaWF0IjoxNzExMjcwMDYyfQ.kiAKLaZltjstI2PES9n4zKv5lqtxnJ7MM-Bi5wj7VtY",
-  pinata_gateway: "black-bizarre-newt-694.mypinata.cloud",
-});
+    pinata_jwt: process.env.PINATA_JWT!,
+    pinata_gateway: process.env.NEXT_PUBLIC_GATEWAY_URL!}, 
+);
 
 type State = {};
 
