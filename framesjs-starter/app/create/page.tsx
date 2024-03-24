@@ -124,7 +124,7 @@ const Page = () => {
 
     const data = new FormData();
     data.set("file", image);
-    const res = await fetch("http://localhost:3000/create/upload", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/create/upload`, {
       method: "POST",
       body: data,
     });
@@ -141,7 +141,7 @@ const Page = () => {
     });
 
     const newFundRaiserUrl =
-      "http://localhost:3000" +
+      process.env.NEXT_PUBLIC_HOST +
       newFundRaiserRef
         .toString()
         .substring(newFundRaiserRef.root.toString().length - 1);

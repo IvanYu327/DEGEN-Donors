@@ -190,9 +190,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
                 </div>
                 <div tw="flex flex-col pl-8 w-210">
                   <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
-                  <p tw="mt-0 pt-0 mb-0 pb-0">
-                    {state?.description}
-                  </p>
+                  <p tw="mt-0 pt-0 mb-0 pb-0">{state?.description}</p>
                 </div>
               </div>
               {/* Progress bar */}
@@ -221,29 +219,29 @@ export default async function Home({ params, searchParams }: HomeProps) {
         </FrameImage>
         <FrameButton
           action="tx"
-          target={`http://localhost:3000/${params.id}/transactions/target?amount=0.01`}
-          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=0.01`}
+          post_url={`${process.env.NEXT_PUBLIC_HOST}/frames?p=/${params.id}/transactions/processing`}
         >
           Donate $0.01
         </FrameButton>
         <FrameButton
           action="tx"
-          target={`http://localhost:3000/${params.id}/transactions/target?amount=0.03`}
-          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=0.03`}
+          post_url={`${process.env.NEXT_PUBLIC_HOST}/frames?p=/${params.id}/transactions/processing`}
         >
           Donate $0.03
         </FrameButton>
         <FrameInput text="Enter Custom Amount in $" />
         <FrameButton
           action="tx"
-          target={`http://localhost:3000/${params.id}/transactions/target?amount=custom`}
-          post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}
+          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=custom`}
+          post_url={`${process.env.NEXT_PUBLIC_HOST}/frames?p=/${params.id}/transactions/processing`}
         >
           Donate Custom
         </FrameButton>
         <FrameButton
           action="post"
-          target={`http://localhost:3000/${params.id}/stats`}
+          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/stats`}
         >
           Stats
         </FrameButton>
