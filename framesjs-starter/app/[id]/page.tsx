@@ -67,13 +67,15 @@ interface HomeProps {
 
 // This is a react server component only
 export default async function Home({ params, searchParams }: HomeProps) {
-  const url = currentURL("/");
+  // const url = currentURL("/");
   const previousFrame = getPreviousFrame<State>(searchParams);
   const dbRef = ref(database, params.id);
   const snapshot = await get(dbRef);
   if (!snapshot.exists()) {
     throw new Error("No data available");
   }
+
+  console.log('AAAA', previousFrame)
 
   const initialState: State = snapshot.val();
 
@@ -97,22 +99,23 @@ export default async function Home({ params, searchParams }: HomeProps) {
   console.log("info: state is:", state);
   console.log("info: message is:", frameMessage);
 
-  if (frameMessage?.transactionId) {
-    return (
-      <FrameContainer
-        postUrl="/frames"
-        pathname="/"
-        state={state}
-        previousFrame={previousFrame}
-        accepts={acceptedProtocols}
-      >
-        <FrameImage aspectRatio="1.91:1">
-          <div tw="flex">Transaction Received</div>
-          <div tw="flex">{frameMessage?.transactionId}</div>
-        </FrameImage>
-      </FrameContainer>
-    );
-  }
+  // if (frameMessage?.transactionId) {
+  //   const txId = frameMessage?.transactionId
+
+  //   return (
+  //     <FrameContainer
+  //       postUrl={`/${params.id}`}
+  //       pathname={`/${params.id}`}
+  //       state={state}
+  //       previousFrame={previousFrame}
+  //       accepts={acceptedProtocols}>
+  //       <FrameImage aspectRatio="1.91:1">
+  //           <div tw="flex">Processing Transaction</div>
+  //           <div tw="flex">{txId.substring(0, 6) + "..." + txId.substring(txId.length - 6)}</div>
+  //       </FrameImage>
+  //     </FrameContainer>
+  //   );
+  // }
 
   const percent = (state.raised / state.goal) * 100;
   const percent_string = percent.toFixed(2) + "%";
@@ -120,7 +123,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
   // then, when done, return next frame
   return (
     <div className="p-4">
-      frames.js starter kit. The Template Frame is on this page, it&apos;s in
+      {/* frames.js starter kit. The Template Frame is on this page, it&apos;s in
       the html meta tags (inspect source).{" "}
       <Link href={createDebugUrl(url)} className="underline">
         Debug
@@ -128,10 +131,10 @@ export default async function Home({ params, searchParams }: HomeProps) {
       or see{" "}
       <Link href="/examples" className="underline">
         other examples
-      </Link>
+      </Link> */}
       <FrameContainer
-        postUrl="/frames"
-        pathname="/"
+        postUrl={`/${params.id}`}
+        pathname={`/${params.id}`}
         state={state}
         previousFrame={previousFrame}
         accepts={acceptedProtocols}
@@ -183,17 +186,30 @@ export default async function Home({ params, searchParams }: HomeProps) {
             </div>
           </div>
         </FrameImage>
-        <FrameInput text="put some text here" />
-
-        <FrameButton action="link" target={`https://www.google.com`}>
-          External
+        <FrameButton
+              action="tx"
+              target={`http://localhost:3000/${params.id}/transactions/target?amount=0.01`}
+              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          Donate $0.01
         </FrameButton>
         <FrameButton
-          action="tx"
-          target="http://localhost:3000/txtarget"
-          post_url="http://localhost:3000/frames"
-        >
-          Pay
+              action="tx"
+              target={`http://localhost:3000/${params.id}/transactions/target?amount=0.02`}
+              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          Donate $0.02
+        </FrameButton>
+        <FrameButton
+              action="tx"
+              target={`http://localhost:3000/${params.id}/transactions/target?amount=0.03`}
+              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          Donate $0.03
+        </FrameButton>
+        <FrameInput text="Enter Custom Amount in $" />
+        <FrameButton
+              action="tx"
+              target={`http://localhost:3000/${params.id}/transactions/target?amount=custom`}
+              post_url={`http://localhost:3000/frames?p=/${params.id}/transactions/processing`}>
+          Donate Custom
         </FrameButton>
       </FrameContainer>
     </div>
