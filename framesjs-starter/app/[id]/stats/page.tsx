@@ -31,9 +31,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 const fdk = new PinataFDK({
-    pinata_jwt: process.env.PINATA_JWT!,
-    pinata_gateway: process.env.NEXT_PUBLIC_GATEWAY_URL!}, 
-);
+  pinata_jwt: process.env.PINATA_JWT!,
+  pinata_gateway: process.env.NEXT_PUBLIC_GATEWAY_URL!,
+});
 
 type State = {};
 
@@ -123,22 +123,40 @@ export default async function Home({ params, searchParams }: HomeProps) {
       accepts={acceptedProtocols}
     >
       <FrameImage aspectRatio="1.91:1">
-        <div tw="flex">Most Donations</div>
-        {donations[0] && (
-          <div tw="flex">
-            1. {donations[0].name}: ${donations[0].value}
+        <div tw="w-full h-full bg-white flex flex-col">
+          <div tw="bg-[#F1F1F1] text-black p-12 flex justify-between items-center">
+            <h2 tw="mt-0 pt-0 mb-0 pb-0">Most Donations</h2>
           </div>
-        )}
-        {donations[1] && (
-          <div tw="flex">
-            2. {donations[1].name}: ${donations[1].value}
+          <div tw="flex-col flex px-12 py-8">
+            {donations.length === 0 && (
+              <div tw="flex">No donations yet. Be the first!</div>
+            )}
+            {donations[0] && (
+              <div tw="flex items-center">
+                <h2 tw="mt-0 pt-0 mb-0 pb-0 mr-4">🥇</h2>
+                <p>
+                  {donations[0].name}: ${donations[0].value}{" "}
+                </p>
+              </div>
+            )}
+            {donations[1] && (
+              <div tw="flex items-center">
+                <h2 tw="mt-0 pt-0 mb-0 pb-0 mr-4">🥈</h2>
+                <p>
+                  {donations[1].name}: ${donations[0].value}{" "}
+                </p>
+              </div>
+            )}
+            {donations[2] && (
+              <div tw="flex items-center">
+                <h2 tw="mt-0 pt-0 mb-0 pb-0 mr-4">🥉</h2>
+                <p>
+                  {donations[2].name}: ${donations[2].value}{" "}
+                </p>
+              </div>
+            )}
           </div>
-        )}
-        {donations[2] && (
-          <div tw="flex">
-            3. {donations[2].name}: ${donations[2].value}
-          </div>
-        )}
+        </div>
       </FrameImage>
       <FrameButton target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}`}>
         Go Back

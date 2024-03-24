@@ -175,7 +175,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
         <FrameImage aspectRatio="1.91:1">
           <div tw="w-full h-full bg-white flex flex-col ">
             <div tw="bg-[#F1F1F1] text-black p-12 flex justify-between items-center">
-              <div style={{ fontFamily: "SF Mono" }}>Donate Now</div>
+              <h2 tw="mt-0 pt-0 mb-0 pb-0">Donate Now</h2>
             </div>
             {/* Image, with title, and description to the right */}
             <div tw="flex flex-col">
@@ -189,7 +189,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
                   />
                 </div>
                 <div tw="flex flex-col pl-8 w-210">
-                  <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
+                  <h2 tw="mt-0 pt-0 mb-0 pb-0 mb-2">{state?.title}</h2>
                   <p tw="mt-0 pt-0 mb-0 pb-0">{state?.description}</p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
               <div tw="flex flex-col items-center">
                 <div
                   style={{ background: "#D9D9D9" }}
-                  tw="flex w-95/100 h-8 rounded-lg overflow-hidden"
+                  tw="flex w-95/100 h-8 rounded-2xl overflow-hidden"
                 >
                   <div
                     tw="h-full"
@@ -206,7 +206,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
                   {/* Adjust width dynamically */}
                 </div>
                 {/* Progress bar info */}
-                <div tw="flex w-95/100 h-16 justify-between">
+                <div tw="flex w-95/100 h-16 justify-between mt-3">
                   <div tw="flex">
                     <span tw="pr-2">${state?.raised}</span>
                     of ${state?.goal} raised
@@ -219,17 +219,17 @@ export default async function Home({ params, searchParams }: HomeProps) {
         </FrameImage>
         <FrameButton
           action="tx"
-          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=0.01`}
+          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=1`}
           post_url={`${process.env.NEXT_PUBLIC_HOST}/frames?p=/${params.id}/transactions/processing`}
         >
-          Donate $0.01
+          $1.00
         </FrameButton>
         <FrameButton
           action="tx"
-          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=0.03`}
+          target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=5`}
           post_url={`${process.env.NEXT_PUBLIC_HOST}/frames?p=/${params.id}/transactions/processing`}
         >
-          Donate $0.03
+          $5.00
         </FrameButton>
         <FrameInput text="Enter Custom Amount in $" />
         <FrameButton
@@ -237,7 +237,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
           target={`${process.env.NEXT_PUBLIC_HOST}/${params.id}/transactions/target?amount=custom`}
           post_url={`${process.env.NEXT_PUBLIC_HOST}/frames?p=/${params.id}/transactions/processing`}
         >
-          Donate Custom
+          Custom
         </FrameButton>
         <FrameButton
           action="post"
