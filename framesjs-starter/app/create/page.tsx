@@ -7,6 +7,8 @@ import TitleComponent from "./title";
 
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push } from "firebase/database";
+// import {PrivyProvider} from '@privy-io/react-auth';
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -194,6 +196,21 @@ const Page = () => {
   }
 
   return (
+    //  <PrivyProvider
+    //   appId="sd9a86f9as8d76f9as8d69faj6988we"
+    //   config={{
+    //     // Customize Privy's appearance in your app
+    //     appearance: {
+    //       theme: 'light',
+    //       accentColor: '#676FFF',
+    //       logo: '',
+    //     },
+    //     // Create embedded wallets for users who don't have a wallet
+    //     embeddedWallets: {
+    //       createOnLogin: 'users-without-wallets',
+    //     },
+    //   }}
+    // >
     <Container>
       <ContentContainer>
         <TitleComponent />
@@ -293,6 +310,7 @@ const Page = () => {
         </Form>
       </ContentContainer>
     </Container>
+  // </PrivyProvider>
   );
 };
 
