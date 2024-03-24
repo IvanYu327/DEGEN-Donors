@@ -249,7 +249,7 @@ const Page = () => {
               type="button"
               onClick={() => createEmbeddableWallet()}
             >
-              (BETA) Create an embeddable SOL wallet with
+              Create an embeddable SOL wallet with
               <div
                 style={{
                   display: "flex",
