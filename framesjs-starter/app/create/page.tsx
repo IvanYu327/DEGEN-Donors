@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: "SF Mono", monospace;
+  padding-bottom: 50px;
 `;
 
 const ContentContainer = styled.div`
@@ -30,6 +31,10 @@ const DropZone = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    border-color: #007bff;
+  }
 `;
 
 const Form = styled.form`
@@ -100,7 +105,9 @@ const Page = () => {
           {image ? (
             <img src={URL.createObjectURL(image)} alt="Uploaded" />
           ) : (
-            <div>Upload you image/video here using Pinata</div>
+            <div style={{ width: "225px" }}>
+              Upload your fundraiser image/video, powered by Pinata
+            </div>
           )}
         </DropZone>
         <HiddenInput
