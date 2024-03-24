@@ -20,6 +20,9 @@ const config = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      sfmono: ["SF Mono", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",

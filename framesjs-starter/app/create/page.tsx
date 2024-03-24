@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import FontStyles from "../globalStyles";
-
 import TitleComponent from "./title";
 
 import { initializeApp } from "firebase/app";
@@ -114,16 +112,19 @@ const Page = () => {
       description: description,
       end_time: "1713951647000",
       goal: Math.floor(Number(goal) * (1 / 3379.25) * 1e18),
-      title: name
-    })
+      title: name,
+    });
 
-    const newFundRaiserUrl = "http://localhost:3000" + newFundRaiserRef.toString().substring(newFundRaiserRef.root.toString().length-1)
-    alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`)
+    const newFundRaiserUrl =
+      "http://localhost:3000" +
+      newFundRaiserRef
+        .toString()
+        .substring(newFundRaiserRef.root.toString().length - 1);
+    alert(`Your new fundraiser is now accessible at ${newFundRaiserUrl}`);
   };
 
   return (
     <Container>
-      <FontStyles />
       <ContentContainer>
         <TitleComponent />
         <DropZone

@@ -74,3 +74,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  @font-face {
+    font-family: SF Mono;
+    font-weight: 400;
+    src: url(/framesjs-starter/public/sf-mono-medium.woff) format("woff");
+  }
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("/framesjs-starter/public/sf-mono-medium.woff2") format("woff2"),
+    url("/framesjs-starter/public/sf-mono-medium.woff") format("woff");
+  /* Add additional font formats if necessary */
+  /* You can specify font-weight and font-style here if needed */
+}

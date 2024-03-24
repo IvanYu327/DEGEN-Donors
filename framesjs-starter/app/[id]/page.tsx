@@ -174,9 +174,9 @@ export default async function Home({ params, searchParams }: HomeProps) {
       >
         {/* <FrameImage src="https://framesjs.org/og.png" /> */}
         <FrameImage aspectRatio="1.91:1">
-          <div tw="w-full h-full bg-gray-200 flex flex-col ">
-            <div tw="bg-slate-700 text-white p-12 flex justify-between items-center">
-              <div>Donate Now</div>
+          <div tw="w-full h-full bg-white flex flex-col ">
+            <div tw="bg-[#F1F1F1] text-black p-12 flex justify-between items-center">
+              <div style={{ fontFamily: "SF Mono" }}>Donate Now</div>
             </div>
             {/* Image, with title, and description to the right */}
             <div tw="flex flex-col">
@@ -191,8 +191,8 @@ export default async function Home({ params, searchParams }: HomeProps) {
                   <div tw="flex bg-gray-300 w-64 h-64"></div>
                 </div>
                 <div tw="flex flex-col pl-8 w-210">
-                  <h2 tw="mt-0 pt-0 mb-0 pb-0">{state?.title}</h2>
-                  <p tw="mt-0 pt-0 mb-0 pb-0">
+                  <h2 tw="mt-0 pt-0 mb-0 pb-0 font-sfmono">{state?.title}</h2>
+                  <p tw="mt-0 pt-0 mb-0 pb-0 font-sfmono">
                     {state?.description} ohsodjsofjsdo
                   </p>
                 </div>

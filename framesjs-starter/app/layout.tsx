@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { createGlobalStyle } from "styled-components";
 import "./globals.css";
+import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   // without a title, warpcast won't validate your frame
@@ -8,13 +8,18 @@ export const metadata: Metadata = {
   description: "...",
 };
 
+const myFont = localFont({
+  src: "./font/sf-mono-medium.woff",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={myFont.className}>
       <body>{children}</body>
     </html>
   );
