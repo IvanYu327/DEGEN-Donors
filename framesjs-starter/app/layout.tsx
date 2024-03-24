@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createGlobalStyle } from "styled-components";
 import "./globals.css";
 
 export const metadata: Metadata = {

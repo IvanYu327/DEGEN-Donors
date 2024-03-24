@@ -3,12 +3,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import FontStyles from "../globalStyles";
+
 import TitleComponent from "./title";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "SF Mono", monospace;
 `;
 
 const ContentContainer = styled.div`
@@ -22,7 +25,7 @@ const ContentContainer = styled.div`
 const DropZone = styled.div`
   width: 400px;
   height: 250px;
-  border: 2px dashed #ccc;
+  border: 5px dashed #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,11 +89,9 @@ const Page = () => {
 
   return (
     <Container>
+      <FontStyles />
       <ContentContainer>
-        <TitleComponent
-          title="Create a Fundraiser"
-          subtitle="Fill out the form below"
-        />
+        <TitleComponent />
         <DropZone
           onDrop={handleImageDrop}
           onDragOver={(event) => event.preventDefault()}
@@ -99,7 +100,7 @@ const Page = () => {
           {image ? (
             <img src={URL.createObjectURL(image)} alt="Uploaded" />
           ) : (
-            <div>Drag & Drop Image Here or Click to Upload</div>
+            <div>Upload you image/video here using Pinata</div>
           )}
         </DropZone>
         <HiddenInput
