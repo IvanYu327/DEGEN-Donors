@@ -184,12 +184,7 @@ export default async function Home({ params, searchParams }: HomeProps) {
           </div>
         </FrameImage>
         <FrameInput text="put some text here" />
-        <FrameButton>
-          {state?.active === "1" ? "Active" : "Inactive"}
-        </FrameButton>
-        <FrameButton>
-          {state?.active === "2" ? "Active" : "Inactive"}
-        </FrameButton>
+
         <FrameButton action="link" target={`https://www.google.com`}>
           External
         </FrameButton>

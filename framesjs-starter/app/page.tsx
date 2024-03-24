@@ -84,13 +84,14 @@ export default async function Home({ searchParams }: NextServerPageProps) {
         pathname="/"
         state={state}
         previousFrame={previousFrame}
-        accepts={acceptedProtocols}>
-          <FrameImage aspectRatio="1.91:1">
-            <div tw="flex">Transaction Received</div>
-            <div tw="flex">{frameMessage?.transactionId}</div>
-          </FrameImage>
+        accepts={acceptedProtocols}
+      >
+        <FrameImage aspectRatio="1.91:1">
+          <div tw="flex">Transaction Received</div>
+          <div tw="flex">{frameMessage?.transactionId}</div>
+        </FrameImage>
       </FrameContainer>
-    )
+    );
   }
 
   const percent = (state.raised / state.goal) * 100;
@@ -163,16 +164,14 @@ export default async function Home({ searchParams }: NextServerPageProps) {
           </div>
         </FrameImage>
         <FrameInput text="put some text here" />
-        <FrameButton>
-          {state?.active === "1" ? "Active" : "Inactive"}
-        </FrameButton>
-        <FrameButton>
-          {state?.active === "2" ? "Active" : "Inactive"}
-        </FrameButton>
         <FrameButton action="link" target={`https://www.google.com`}>
           External
         </FrameButton>
-        <FrameButton action="tx" target="http://localhost:3000/txtarget" post_url="http://localhost:3000/frames">
+        <FrameButton
+          action="tx"
+          target="http://localhost:3000/txtarget"
+          post_url="http://localhost:3000/frames"
+        >
           Pay
         </FrameButton>
       </FrameContainer>
