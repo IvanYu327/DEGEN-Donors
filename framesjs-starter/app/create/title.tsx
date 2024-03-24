@@ -26,6 +26,8 @@ const SubtitleContainer = styled.div`
   width: 400px;
   font-size: 24px;
   font-weight: 400;
+
+  transform: translateY(-30px);
 `;
 
 const Subtitle = styled.h2`
