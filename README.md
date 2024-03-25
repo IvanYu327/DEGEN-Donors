@@ -1,4 +1,4 @@
-# $DEGEN Donors 💸
+# $DEGEN Donors 💸 (We didn't we win anything 😔)
 
 Timmy is a `$DEGEN` Farcaster power user. He has lots of rich crypto friends on Farcaster. 
 
